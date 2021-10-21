@@ -1,0 +1,16 @@
+{
+  "name": "proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node ./src/main/server.js",
+    "start": "nodemon --inspect ./src/main/server.js"
+  },
+  "author": "wjp",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "express": "^4.17.1",
+    "node-forge": "^0.10.0"
+  }
+}

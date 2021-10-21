@@ -1,0 +1,9 @@
+.DS_Store
+node_modules
+*.log
+dist/
+jsdoc.json
+docs/
+log.txt
+errLog.txt
+.vscode
