@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const { proxyPort } = require('../common/config.js');
-const { writeFile } = require('../common/utils')
+const { writeFile } = require('../common/utils');
+
+// https的url不一定提供，只能保证host是提供的
 // win代理规则，生成一个pac脚本文件
 function getTemp(proxyRulers, port = proxyPort) {
   const proxyRulersStr = `[${proxyRulers.join(', ')}]`

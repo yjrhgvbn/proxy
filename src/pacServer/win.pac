@@ -11,7 +11,8 @@ var FindProxyForURL = function(init, profiles) {
 }("+auto switch", {
   "+auto switch": function(url, host, scheme) {
       "use strict";
-      if (/(?:^|\.)hm\.baidu\.com/.test(host)) return "+proxy";
+      // if (/(?:^|\.)getman\.cn/.test(host)) return "+proxy";
+      if (/(?:^|\.)sit-ecp-console\.api\.adidas\.com\.cn/.test(host)) return "+proxy";
       return "DIRECT";
   },
   "+proxy": function(url, host, scheme) {

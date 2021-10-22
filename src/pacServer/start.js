@@ -10,7 +10,6 @@ function send404(response) {
   response.end();
 }
 
-// pac脚本挂载到http，http://127.0.0.1:6667/winAuto.pac
 function startSever() {
   const server = http.createServer(function (req, res) {
     writeFile(JSON.stringify(req.headers), './h.txt')
