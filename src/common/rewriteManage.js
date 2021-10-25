@@ -31,7 +31,9 @@ async function getRequest(req) {
 }
 
 async function sendRequest(options) {
-  const res = await axios(options);
+  const res = await axios(options).catch(e => {
+    console.log(e)
+  });
   return res;
 }
 
@@ -47,7 +49,8 @@ class RewriteManage {
     let [requstOptions, requstOptionsRaw] = await getRequest(req);
     const matchUrl = requstOptions.url;
     // 设置请求参数
-    let isRequestRewrite = false;
+    // 重写的合集
+    let requestRewriteAll = {};
     for (let i = 0; i < this.mapList.length; i++) {
       const { url, rewrite } = this.mapList[i];
       if (!matchUrl.startsWith(url)) {
@@ -55,23 +58,27 @@ class RewriteManage {
       }
       isRequestRewrite = true;
       if (rewrite.requestRewrite) {
-        requstOptions = (await rewrite.requestRewrite(requstOptions, req)) || {};
+        const requestOptionsParse = { ...requstOptions, ...requestRewriteAll };
+        const rewritePart = (await rewrite.requestRewrite(requestOptionsParse, req)) || {};
+        requestRewriteAll = { ...requestRewriteAll, ...rewritePart };
       }
     }
     // 发送请求, 没有改动设置为原数据
-    requstOptions = isRequestRewrite ? { ...requstOptionsRaw, ...requstOptions } : requstOptionsRaw;
-    let responseRes = await sendRequest(requstOptions);
+    let responseRes = await sendRequest({ ...requstOptionsRaw, ...requestRewriteAll });
     // 修改请求
+    // let responseRewriteAll = {};
     for (let i = 0; i < this.mapList.length; i++) {
       const { url, rewrite } = this.mapList[i];
       if (!matchUrl.startsWith(url)) {
         continue;
       }
       if (rewrite.responseRewrite) {
-        responseRes = (await rewrite.responseRewrite(responseRes)) || responseRes;
+        const rewritePart = (await rewrite.responseRewrite(responseRes)) || {};
+        // responseRewriteAll = {...responseRewriteAll, ...rewritePart}
+        responseRes = { ...responseRes, ...rewritePart }
       }
     };
-    res.status(responseRes.status || 200).set(responseRes.headers).send(responseRes.data);
+    res.status(responseRes?.status || 200).set(responseRes?.headers).send(responseRes?.data);
   }
 }
 

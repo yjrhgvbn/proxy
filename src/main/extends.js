@@ -5,7 +5,7 @@ module.exports = function rewriteExtends() {
   new Rewrite('https://sit-ecp-console.api.adidas.com.cn').setRequest((req)=>{
     origin = req.headers.origin || origin;
   }).setRespont((res) => {
-    if(res.headers['access-control-allow-origin']){
+    if(res?.headers['access-control-allow-origin']){
       return {
         ...res,
         headers:{
@@ -17,4 +17,10 @@ module.exports = function rewriteExtends() {
     return null;
     // access-control-allow-origin
   })
+
+  // new Rewrite('https://sit-ecp-console.api.adidas.com.cn/iam/hzero/v1/menus/check-permissions').setRequest(req=>{
+  //   console.log(req)
+  // }).setRespont(res=>{
+  //   console.log(res)
+  // })
 }
