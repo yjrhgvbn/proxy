@@ -2,7 +2,7 @@ const Rewrite = require('../common/Rewrite');
 
 module.exports = function rewriteExtends() {
   let origin = 'http://localhost:8000';
-  new Rewrite('https://sit-ecp-console.api.adidas.com.cn').setRequest((req)=>{
+  new Rewrite('https://xxxxx.com.cn').setRequest((req)=>{
     origin = req.headers.origin || origin;
   }).setRespont((res) => {
     if(res?.headers['access-control-allow-origin']){
@@ -18,9 +18,4 @@ module.exports = function rewriteExtends() {
     // access-control-allow-origin
   })
 
-  // new Rewrite('https://sit-ecp-console.api.adidas.com.cn/iam/hzero/v1/menus/check-permissions').setRequest(req=>{
-  //   console.log(req)
-  // }).setRespont(res=>{
-  //   console.log(res)
-  // })
 }

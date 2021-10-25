@@ -12,7 +12,7 @@ var FindProxyForURL = function(init, profiles) {
   "+auto switch": function(url, host, scheme) {
       "use strict";
       // if (/(?:^|\.)getman\.cn/.test(host)) return "+proxy";
-      if (/(?:^|\.)sit-ecp-console\.api\.adidas\.com\.cn/.test(host)) return "+proxy";
+      if (/(?:^|\.)xxxx.com\.cn/.test(host)) return "+proxy";
       return "DIRECT";
   },
   "+proxy": function(url, host, scheme) {
